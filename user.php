@@ -1,12 +1,13 @@
 <?php
+
 class User
 {
     private $conn;
     private $table = "users";
 
-    public function __construct($db)
+    public function __construct($conn)
     {
-        $this->conn = $db;
+        $this->conn = $conn;
     }
 
     // CREATE
@@ -22,18 +23,31 @@ class User
         }
     }
 
-    public function login($username, $password){
+       public function login($username, $password){
 
-        $sql = "SELECT * FROM " . 
-        $this->table . " WHERE username = '".
-        $username . "' AND password = '".
+        $sql = "SELECT * FROM " . $this->table . " WHERE username = '" . 
+        $username . "' AND password = '" .
         $password ."'";
 
-        $result = $this->conn->query($sql);
-         
-        if(!$result->num_rows>0){
-            return false;
-        }
-        return true;
-    }
+        $result =$this->conn->query($sql);
+
+        if($result->num_rows == 0){
+           return false;
+        } 
+        return true; 
+       }
+  
+       public function getAllUsers()
+       {
+       $sql = "SELECT *FROM $this->table";
+       $result = $this->conn->query($sql);
+
+       if ($result->num_rows > 0){
+        return $result;
+       }else{
+        return null;
+       }
+       }
+
+   
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "database.php";
@@ -15,14 +15,15 @@ $user = new User($conn);
 $ditemukan = $user->login($username, $password);
 
 if($ditemukan == false){
-    $_SESSION['pesan kesalahan'] = "Login gagal";
+    $_SESSION['pesan_kesalahan']= 'Login gagal';
     header("Location: index.php");
-    exit;   
+    exit;
 }else{
     $_SESSION['is_logged_in'] = true;
     header("Location: dashboard/index.php");
     exit;
 }
+
  
 if($password == $password_valid &&
     $username == $username_valid);

@@ -1,28 +1,25 @@
 <?php
-
 require_once "database.php";
 require_once "users.php";
 
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $asal = $_POST["asal"];
-    $password = $_POST["password"];
-    $password_ulang = $_POST["password_ulang"];
 
-    if(isset($_POST["setuju"])){
-        echo "Anda telah menyetujui form";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if (isset($_POST["setuju"])) {
+        
+        $username = $_POST["username"];
+        // ... (data lainnya)
 
-        if($password !=$password_ulang){
-            echo "passsword tidak sama";
-            die;
-        }
-
+        echo "Anda telah menyetujui form<br>";
+        
         $database = new Database();
-        $koneksi_db = $database->koneksi();
-
-        $user = new User($koneksi_db);
-        $user->create(username, email, asal, password);
-
-}else{
-    echo "Anda harus menyetujui form";
+        $conn = $database->connect();
+        
+        echo "Database terhubung";
+    } else {
+        echo "Anda harus menyetujui form (Checkbox belum dicentang)";
+    }
+} else {
+    echo "Akses ditolak: Form belum disubmit.";
 }
+?>
