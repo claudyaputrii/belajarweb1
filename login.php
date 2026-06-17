@@ -2,7 +2,7 @@
 session_start();
 
 require_once "database.php";
-require_once "user.php";
+require_once "users.php";
 
 $username = $_POST['input_username'];
 $password = $_POST['input_password'];
@@ -10,7 +10,7 @@ $password = $_POST['input_password'];
 
 $db = new Database();
 $conn = $db->connect();
-$user = new User($conn);
+$user = new Users($conn);
 
 $ditemukan = $user->login($username, $password);
 
